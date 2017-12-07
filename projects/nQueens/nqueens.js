@@ -393,13 +393,13 @@
 /***/ (function (module, exports) {
 
       module.exports = function (instruction) {
-        if (instruction.STATUS === '!SOLUTION!') {
-          document.getElementById('alert').innerHTML = 'Solution';// eslint-disable-line
-        } else if (instruction.STATUS === '!SOLUTION!') {
-          document.getElementById('alert').innerHTML = 'Solution';// eslint-disable-line
-        } else {
-          document.getElementById('alert').innerHTML = '';// eslint-disable-line
-        }
+        // if (instruction.STATUS === '!SOLUTION!') {
+        //   document.getElementById('alert').innerHTML = 'Solution';// eslint-disable-line
+        // } else if (instruction.STATUS === '!SOLUTION!') {
+        //   document.getElementById('alert').innerHTML = 'Solution';// eslint-disable-line
+        // } else {
+        //   document.getElementById('alert').innerHTML = '';// eslint-disable-line
+        // }
 
         // document.getElementById('bit').innerHTML = instruction.bit ? instruction.bit.toString(2) : 'pending';// eslint-disable-line
         // document.getElementById('start').innerHTML = instruction.start ? instruction.start : 'pending';// eslint-disable-line

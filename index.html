@@ -3,13 +3,13 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-
+	
 	<link href='http://fonts.googleapis.com/css?family=Jaldi:700,400' rel='stylesheet' type='text/css'>
-
+	
 	<link rel="stylesheet" href="css/reset.css"> <!-- CSS reset -->
 	<link rel="stylesheet" href="css/style.css"> <!-- Resource style -->
 	<script src="js/modernizr.js"></script> <!-- Modernizr -->
-  	
+	
 	<title>Anuar Zhuken</title>
 </head>
 <body>
@@ -27,58 +27,81 @@
 					
 				</div>
 			</li>
-				
+			
 			<li>
 				<div>
 					<h2>N Queens</h2>
 					<p>Visualization of bitwise solution.</p>
-						<span>
-							<span class="input-number-decrement">–</span>
-							<input class="input-number" id="num" type="text" value="1" min="0" max="10"/ >
-							<span class="input-number-increment">+</span>
-						</span>
-						<!-- <input id='num' type='number' min='0' max='8'> -->
-						<a class='cd-btn' id='startButton'>Start Game</a>
-						<div>
+					<div class="effect1" style="position: relative; background-color: #ffffff; 
+					margin: 0 auto; width: 80%;	height: 400px; border-radius: 5px; text-align: justify">
+					
+						<div style="position: relative; text-align: -webkit-auto; width: 50%; text-align: center; display: inline-block;">
+							<span>
+								<span class="input-number-decrement">–</span>
+								<input class="input-number" id="num" type="text" value="1" min="0" max="10"/ >
+								<span class="input-number-increment">+</span>
+								<a class='cd-btn' id='startButton'>Start Game</a>
+							</span>
 							<div id="board">
+								<img class="placeholder" src="./img/queen.png" alt="">
 							</div>
-							<div id="alert"></div>
 						</div>
-				</div>
-			</li>
+						
+						<div style="display: inline-block; width: 40%; opacity: 0.65; height: 100%; 
+							position: absolute; top: 0;">
+							<ul>
+								<li>
+									<div class='circle' style="background-color: orange"></div> Minor Diagonal
+								</li>
+								<li>
+									<div class='circle' style="background-color: black"></div> Major Diagonal
+								</li>
+								<li>
+									<div class='circle' style="background-color: red"></div> Column
+								</li>
+							</ul>
+							<img class="technology" src="./img/d3.jpeg" alt="">
+							<img class="technology" src="./img/js.jpeg" alt="">
+							<img class="technology" src="./img/webpack.jpeg" alt="">
+						</div>
+					</div>
+			</div>
+		</div>
+	</div>
+</li>
 
-			<li>
-				<div>
-					<h2>Find an odd ball</h2>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae, distinctio!.</p>
-					<a href="http://codyhouse.co/?p=854" class="cd-btn">Learn more</a>
-				</div>
-			</li>
+<li>
+	<div>
+		<h2>Find an odd ball</h2>
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae, distinctio!.</p>
+		<a href="http://codyhouse.co/?p=854" class="cd-btn">Learn more</a>
+	</div>
+</li>
 
-			<li>
-				<div>
-					<h2>Battle bread</h2>
-					<p>Lorem ipsum dolor sit amet.</p>
-					<a href="http://codyhouse.co/?p=854" class="cd-btn">Learn more</a>
-				</div>
-			</li>
-		</ul> <!-- .cd-slider -->
-	
-		<ol class="cd-slider-navigation">
-			<li class="selected"><a href="#0"><em>Item 1</em></a></li>
-			<li><a href="#0"><em>Item 2</em></a></li>
-			<li><a href="#0"><em>Item 3</em></a></li>
-			<li><a href="#0"><em>Item 4</em></a></li>
-		</ol> <!-- .cd-slider-navigation -->
-		
-		<div class="cd-svg-cover" data-step1="M1402,800h-2V0.6c0-0.3,0-0.3,0-0.6h2v294V800z" data-step2="M1400,800H383L770.7,0.6c0.2-0.3,0.5-0.6,0.9-0.6H1400v294V800z" data-step3="M1400,800H0V0.6C0,0.4,0,0.3,0,0h1400v294V800z" data-step4="M615,800H0V0.6C0,0.4,0,0.3,0,0h615L393,312L615,800z" data-step5="M0,800h-2V0.6C-2,0.4-2,0.3-2,0h2v312V800z" data-step6="M-2,800h2L0,0.6C0,0.3,0,0.3,0,0l-2,0v294V800z" data-step7="M0,800h1017L629.3,0.6c-0.2-0.3-0.5-0.6-0.9-0.6L0,0l0,294L0,800z" data-step8="M0,800h1400V0.6c0-0.2,0-0.3,0-0.6L0,0l0,294L0,800z" data-step9="M785,800h615V0.6c0-0.2,0-0.3,0-0.6L785,0l222,312L785,800z" data-step10="M1400,800h2V0.6c0-0.2,0-0.3,0-0.6l-2,0v312V800z">
-			<svg height='100%' width="100%" preserveAspectRatio="none" viewBox="0 0 1400 800">
-				<title>SVG cover layer</title>
-				<desc>an animated layer to switch from one slide to the next one</desc>
-				<path id="cd-changing-path" d="M1402,800h-2V0.6c0-0.3,0-0.3,0-0.6h2v294V800z"/>
-			</svg>
-		</div> <!-- .cd-svg-cover -->
-	</section> <!-- .cd-slider-wrapper -->
+<li>
+	<div>
+		<h2>Battle bread</h2>
+		<p>Lorem ipsum dolor sit amet.</p>
+		<div class='vis'></div>
+	</div>
+</li>
+</ul> <!-- .cd-slider -->
+
+<ol class="cd-slider-navigation">
+	<li class="selected"><a href="#0"><em>Item 1</em></a></li>
+	<li><a href="#0"><em>Item 2</em></a></li>
+	<li><a href="#0"><em>Item 3</em></a></li>
+	<li><a href="#0"><em>Item 4</em></a></li>
+</ol> <!-- .cd-slider-navigation -->
+
+<div class="cd-svg-cover" data-step1="M1402,800h-2V0.6c0-0.3,0-0.3,0-0.6h2v294V800z" data-step2="M1400,800H383L770.7,0.6c0.2-0.3,0.5-0.6,0.9-0.6H1400v294V800z" data-step3="M1400,800H0V0.6C0,0.4,0,0.3,0,0h1400v294V800z" data-step4="M615,800H0V0.6C0,0.4,0,0.3,0,0h615L393,312L615,800z" data-step5="M0,800h-2V0.6C-2,0.4-2,0.3-2,0h2v312V800z" data-step6="M-2,800h2L0,0.6C0,0.3,0,0.3,0,0l-2,0v294V800z" data-step7="M0,800h1017L629.3,0.6c-0.2-0.3-0.5-0.6-0.9-0.6L0,0l0,294L0,800z" data-step8="M0,800h1400V0.6c0-0.2,0-0.3,0-0.6L0,0l0,294L0,800z" data-step9="M785,800h615V0.6c0-0.2,0-0.3,0-0.6L785,0l222,312L785,800z" data-step10="M1400,800h2V0.6c0-0.2,0-0.3,0-0.6l-2,0v312V800z">
+	<svg height='100%' width="100%" preserveAspectRatio="none" viewBox="0 0 1400 800">
+		<title>SVG cover layer</title>
+		<desc>an animated layer to switch from one slide to the next one</desc>
+		<path id="cd-changing-path" d="M1402,800h-2V0.6c0-0.3,0-0.3,0-0.6h2v294V800z"/>
+	</svg>
+</div> <!-- .cd-svg-cover -->
+</section> <!-- .cd-slider-wrapper -->
 <script src="js/jquery-2.1.4.js"></script>
 <script src="js/snap.svg-min.js"></script>
 <script src="js/main.js"></script> <!-- Resource jQuery -->
@@ -86,46 +109,81 @@
 <script src="projects/nQueens/nqueens.js"></script>
 <script>
 	(function () {
-
-			window.inputNumber = function (el) {
-
-				var min = el.attr('min') || false;
-				var max = el.attr('max') || false;
-
-				var els = {};
-
-				els.dec = el.prev();
-				els.inc = el.next();
-
-				el.each(function () {
-					init($(this));
-				});
-
-				function init(el) {
-
-					els.dec.on('click', decrement);
-					els.inc.on('click', increment);
-
-					function decrement() {
-						var value = el[0].value;
-						value--;
-						if (!min || value >= min) {
-							el[0].value = value;
-						}
+		
+		window.inputNumber = function (el) {
+			
+			var min = el.attr('min') || false;
+			var max = el.attr('max') || false;
+			
+			var els = {};
+			
+			els.dec = el.prev();
+			els.inc = el.next();
+			
+			el.each(function () {
+				init($(this));
+			});
+			
+			function init(el) {
+				
+				els.dec.on('click', decrement);
+				els.inc.on('click', increment);
+				
+				function decrement() {
+					var value = el[0].value;
+					value--;
+					if (!min || value >= min) {
+						el[0].value = value;
 					}
-
-					function increment() {
-						var value = el[0].value;
-						value++;
-						if (!max || value <= max) {
-							el[0].value = value++;
-						}
+				}
+				
+				function increment() {
+					var value = el[0].value;
+					value++;
+					if (!max || value <= max) {
+						el[0].value = value++;
 					}
 				}
 			}
-		})();
+		}
+	})();
+	
+	inputNumber($('.input-number'));
+</script>
+<script>
+	    const svg = d3.select(".vis").append("svg").attr("width", this.state.width + this.state.margin.left + this.state.margin.right)
+				.attr("height", this.state.height + this.state.margin.top + this.state.margin.bottom)
+				.style("position", 'absolute')
+				.style("margin-left", this.state.margin.left + "px")
+				.style("z-index", "100")
+				.append("g")
+				.attr("transform", `translate(${this.state.margin.left}, ${this.state.margin.top})`)
 
-		inputNumber($('.input-number'));
+			if (this.props.visboard) {
+				var x = d3.scaleBand()
+					.domain(d3.range(this.props.visboard.length))
+					.range([0, this.state.width]);
+
+				var y = d3.scaleBand()
+					.domain(d3.range(this.props.visboard.length))
+					.range([0, this.state.height]);
+
+				var color = d3.scaleSequential(d3.interpolateBlues)
+					.domain([0, 26]);
+
+				var row = svg.selectAll(".row")
+					.data(this.props.visboard)
+					.enter().append("g")
+					.attr("class", "row")
+					.attr("transform", (d, i) => `translate(0,${y(i)})`);
+				row.selectAll(".cell")
+					.data(d => d)
+					.enter().append("rect")
+					.attr("x", (d, i) => x(i))
+					.attr("width", x.bandwidth())
+					.attr("height", y.bandwidth())
+					.style("fill", d => color(d))
+					.style("fill-opacity", '0.7')
 </script>
 </body>
 </html>
