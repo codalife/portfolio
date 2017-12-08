@@ -348,7 +348,6 @@ svg cover layer
 }
 
 .row {
-	opacity: 0.5;
 	stroke-width: 10;
 	height: 100;
 }
@@ -444,8 +443,6 @@ svg cover layer
   position: relative; 
   background-color: #ffffff; 
   margin: 0 auto; 
-  width: 80%; 
-  min-width: 760px; 
   height: 400px; 
   border-radius: 5px; 
   text-align: justify;
@@ -467,7 +464,7 @@ svg cover layer
 }
 
 .card .part.right {
-  background-color: #4a58c2d6; 
+  background-color: #1c618ad6; 
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   position: absolute; 
@@ -475,14 +472,38 @@ svg cover layer
   color: white;
 }
 
-@media screen and (max-width: 800px) { /*The following CSS runs only for displays with a width (in pixels) of more than 800px*/
+@media screen and (max-width: 800px) { 
   .card {
-    width: 360px;
-    height: 800px;
+    z-index: 0;
+    width: 380px;
+    min-width: 380px;
+    height: 400px;
     display: block;
+    -webkit-transition: width 1s ease-in-out;
+    -moz-transition: width 1s ease-in-out;
+    transition: width 1s ease-in-out;
   }
   .card .part {
+    z-index: 2;
+    position: relative;
     display: block;
-    height: 400px;
+    border-radius: 5px;
+  }
+  .card .part.right {
+    visibility: hidden;
+    z-index: 1;
+    -webkit-transition: all 1s ease-in-out;
+    -moz-transition: all 1s ease-in-out;
+    transition: all 1s ease-in-out;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .card {
+    min-width: 760px; 
+    width: 80%;
+    -webkit-transition: width 1s ease-in-out;
+    -moz-transition: width 1s ease-in-out;
+    transition: width 1s ease-in-out;
   }
 }
