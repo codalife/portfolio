@@ -281,7 +281,6 @@
         const svg = d3.select(".vis").append("svg")
             .attr("width", dimensions.width + dimensions.margin.left + dimensions.margin.right)
             .attr("height", dimensions.height + dimensions.margin.top + dimensions.margin.bottom)
-            .style("position", 'absolute')
             .style("margin-left", dimensions.margin.left + "px")
             .style("z-index", "100")
             .append("g")

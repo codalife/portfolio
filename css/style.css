@@ -514,3 +514,7 @@ svg cover layer
   width: 80%;
   height: 15px;
 }
+
+.vis {
+  display: inline;
+}
