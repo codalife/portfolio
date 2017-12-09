@@ -13,35 +13,54 @@ l__j   |____jl__j__jl_____j      l__j  l__j__jl_____j     \___/ l_____jl_____j  
 document.removeEventListener('click', guess)
 
 // ----------------------------------- SVG and BACKGROUND --------------------------------------------
-var height = 500
+var height = 430
 var width = 800
 
-var svg = d3.select('body')
+var svg = d3.select('#game')
     .append('svg')
     .attr('width', width)
     .attr('height', height)
+    .call(responsivefy)
 
 var canvas = svg.append('rect')
     .attr('width', '100%')
     .attr('height', '100%')
-    .attr('fill', '#4e83ab')
+    .attr('fill', '#544f4f')
+// ----------------------------------------------------------------------------------------------
+// -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+
+
+//---------------------------------RESPONSIVEFY-----------------------------------------------
+function responsivefy(svg) {
+    var container = d3.select(svg.node().parentNode),
+        width = parseInt(svg.style("width")),
+        height = parseInt(svg.style("height")),
+        aspect = width / height;
+
+    svg.attr("viewBox", "0 0 " + width + " " + height)
+        .attr("preserveAspectRatio", "xMinYMin")
+        .call(resize);
+
+    d3.select(window).on("resize." + container.attr("id"), resize)
+
+    function resize() {
+        var targetWidth = parseInt(container.style("width"));
+        svg.attr("width", targetWidth);
+        svg.attr("height", Math.round(targetWidth / aspect));
+    }
+}
+
+
 // ----------------------------------------------------------------------------------------------
 // -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 
 //---------------------------------IMAGES-----------------------------------------------
-// var desk =   svg
-//   .append('image')
-//   .attr('xlink:href','desk.jpeg')
-//   .attr('height', '450')
-//   .attr('width', '800')
-//   .attr('x', -150)
-//   .attr('y', 100)
 
 var binCoordinates = { x: 715, y: 340 }
 
 var bin = svg
     .append('image')
-    .attr('xlink:href', 'binBlueBG.jpg')
+    .attr('xlink:href', './img/bin.png')
     .attr('height', '80')
     .attr('width', '80')
     .attr('x', binCoordinates.x)
@@ -71,20 +90,22 @@ var numOfBallsOnRightFirst = 0;
 
 var numOfBallsOnLeftSecond = 0;
 var numOfBallsOnRightSecond = 0;
+var fontSize = 50;
 
-var message = [{ text: "SCALES USAGES LEFT:", x: 50, y: 50, size: 30, fill: "#cc0000" }, //0
-{ text: "2", x: 320, y: 50, size: 35, fill: "#cc0000" },				  //1
-{ text: 'left side', x: 300, y: 90, size: 25, fill: 'black' },          //2
-{ text: 'right side', x: 450, y: 90, size: 25, fill: 'black' },         //3
-{ text: 'sorted out', x: 600, y: 90, size: 25, fill: 'black' },         //4
-{ text: 'first usage stats: ', x: 80, y: 120, size: 25, fill: 'black' },//5
-{ text: 'second usage stats: ', x: 80, y: 170, size: 25, fill: 'black' }, //6
-{ text: 0, x: 320, y: 120, size: 25, fill: 'black' }, //7
-{ text: 0, x: 470, y: 120, size: 25, fill: 'black' }, //8
-{ text: 0, x: 320, y: 170, size: 25, fill: 'black' }, //9
-{ text: 0, x: 470, y: 170, size: 25, fill: 'black' }, //10
-{ text: 'second usage stats: ', x: 80, y: 170, size: 25, fill: 'black' },  //11
-{ text: 'second usage stats: ', x: 80, y: 170, size: 25, fill: 'black' },  //12
+var message = [
+    { text: "SCALES USAGES LEFT:", x: 50, y: 50, size: fontSize, fill: "#cc0000" }, //0
+    { text: "2", x: 600, y: 50, size: fontSize, fill: "#cc0000" },				  //1
+    { text: 'left', x: 450, y: 110, size: fontSize, fill: 'black' },          //2
+    { text: 'right', x: 600, y: 110, size: fontSize, fill: 'black' },         //3
+    { text: '', x: 600, y: 90, size: fontSize, fill: 'black' },         //4
+    { text: 'first usage stats: ', x: 50, y: 170, size: fontSize, fill: 'black' },//5
+    { text: 'second usage stats: ', x: 50, y: 230, size: fontSize, fill: 'black' }, //6
+    { text: 0, x: 450, y: 170, size: fontSize, fill: 'black' }, //7  balls on left first go
+    { text: 0, x: 600, y: 170, size: fontSize, fill: 'black' }, //8  balls on right first go
+    { text: 0, x: 450, y: 230, size: fontSize, fill: 'black' }, //9  balls on left second go
+    { text: 0, x: 600, y: 230, size: fontSize, fill: 'black' }, //10  balls on right second go
+    { text: 'second usage stats: ', x: 50, y: 230, size: fontSize, fill: 'black' },  //11
+    { text: 'second usage stats: ', x: 50, y: 230, size: fontSize, fill: 'black' },  //12
 ]
 
 
@@ -116,12 +137,9 @@ var svgBalls = svg
     .enter()
     .append('circle')
     .attr('r', 15)
-    // make all balls the same colors after testing -----!!!!!!!
+    // .attr('x', function(d,i){return i*20+200})
     .attr('fill', 'url(#metal)')
     .attr('id', d => d.id)
-// 	function(d, i){
-// 	return d['odd'] ? 'yellow' :
-// })
 
 svgBalls
     .call(d3.drag()
@@ -138,7 +156,7 @@ var shiftRight = 180;
 
 var simulation = d3.forceSimulation(balls)
     .force("collide", d3.forceCollide().radius(16))
-    .force('y', d3.forceY(400).strength(0.555))
+    .force('y', d3.forceY(400).strength(0.75))
 
 var ticked = function () {
     svgBalls
@@ -168,19 +186,12 @@ function dragged(d, i) {
 }
 
 function dragended(d, i) {
-    // d3.select(this)
-    // 	.classed("active", false);
-    // console.log("Before remove: :", balls)
-
     if (d.x + shiftRight > binCoordinates.x) {
         balls = balls.filter(d => d.id != i);
 
         var update = svg.selectAll('circle')
             .data(balls, d => d.id)
             .attr('fill', 'url(#metal)')
-        // function(d, i){
-        // 	return d['odd'] ? 'yellow' : 'url(#metal)'
-        // })
 
         update
             .exit()
@@ -191,7 +202,6 @@ function dragended(d, i) {
 
 
     simulation.alphaTarget(0.1);
-    // console.log("After remove: :", balls)
 }
 // ----------------------------------------------------------------------------------------------
 // -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
@@ -209,8 +219,7 @@ function useScales(numOfBallsOnLeft, numOfBallsOnRight) {
     var numOfBallsOnLeft = 0
     var numOfBallsOnRight = 0
 
-    var text = d3.selectAll('text').data(message)
-    console.log(parseInt(message[1]['text']))
+    var text = d3.selectAll('text').data(message);
     var inTheRightScale = false;
     var inTheLeftScale = false;
 
@@ -303,9 +312,6 @@ function useScales(numOfBallsOnLeft, numOfBallsOnRight) {
             .attr("transform", "translate(0, -50)")
     }
 
-
-    console.log(numOfBallsOnLeft, numOfBallsOnRight)
-
     if (numOfBallsOnLeft === numOfBallsOnRight) {
         if (inTheLeftScale) {
             skewLeft()
@@ -323,19 +329,19 @@ function useScales(numOfBallsOnLeft, numOfBallsOnRight) {
     }
 
     if (parseInt(message[1]['text']) === 2) {
-        setTimeout(function () { alert("Toss non-odd balls in the bin."); }, 1000);
+        setTimeout(function () {
+            document.getElementById('instruction').click()
 
-        document.getElementById('step2').style.visibility = 'visible'
-        document.getElementById('use').style.visibility = 'hidden'
+        }, 1000);
 
         message[7]['text'] = numOfBallsOnLeft
         message[8]['text'] = numOfBallsOnRight
     }
     if (parseInt(message[1]['text']) === 1) {
-        setTimeout(function () { alert("Toss non-odd balls in the bin."); }, 1000);
+        setTimeout(function () {
+            // alert("Toss non-odd balls in the bin.");
 
-        document.getElementById('step2').style.visibility = 'hidden'
-        document.getElementById('use').style.visibility = 'hidden'
+        }, 1000);
 
         message[9]['text'] = numOfBallsOnLeft
         message[10]['text'] = numOfBallsOnRight
@@ -344,34 +350,13 @@ function useScales(numOfBallsOnLeft, numOfBallsOnRight) {
     message[1]['text'] = parseInt(message[1]['text']) - 1;
 
 
-    if (parseInt(message[1]['text']) < 1) {
-        message[1]['text'] = "over the limit"
-        setTimeout(function () { alert("Game over"); }, 1000);
-    }
+    // if(parseInt(message[1]['text']) < 1){
+    // 	message[1]['text'] = "over the limit"
+    // 	setTimeout(function(){ alert("Game over");}, 1000);
+    // }
     var update = svg.selectAll('text')
         .data(message)
         .text(d => d.text)
-
-    // var enter = update
-    // 	.enter()
-    // 	.append('text')
-    // 	.text(d => d.text)
-    // 	.attr('x', d => d.x)
-    // 	.attr('y', d => d.y)
-    // 	.attr('font-size', d => d.size)
-    // 	.attr('fill', d => d.fill)
-
-    // console.log(enter)
-
-    // update.exit().remove()
-
-    // update.merge(enter)
-    // 	.text(function(d){
-    // 		console.log(d);
-    // 		return d.text;
-    // 	})
-
-    // update.enter().text(function(d){return d.text;})
 }
 // ----------------------------------------------------------------------------------------------
 // -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
@@ -420,9 +405,6 @@ drawScales()
 //---------------------------------STEP 2-----------------------------------------------
 function readyForStepTwo() {
 
-    document.getElementById('use').style.visibility = 'visible'
-    document.getElementById('step2').style.visibility = 'hidden'
-
     svg.selectAll('circle')
         .filter(d => d.x > 100)
         .attr('cx', function (d) {
@@ -443,15 +425,65 @@ function pick() {
 
 function guess(e) {
     e = e || window.event;
+
+    d3.select('#game').classed('target', true)
+
     var target = e.target || e.srcElement
-    if (target) {
-        console.log(target.tagName)
-    }
 
     var theChosenOne = document.getElementById(odd);
     if (theChosenOne === target) {
-        alert('Lucky you')
+        if (parseInt(message[7].text) === 3 && parseInt(message[8].text) === 3
+            && parseInt(message[9].text) === 1 && parseInt(message[10].text) === 1) {
+            document.getElementById('rightSolution').click()
+            // alert("That's the right solution! You are amazing!")
+        } else {
+            // alert('Lucky you')
+            document.getElementById('lucky').click()
+        }
     } else if (target.tagName === 'circle') {
-        alert('It was supposed to be 100% probability')
+        document.getElementById('wrong').click()
+        // alert('Try again. You can do it.')
     }
 }
+//---------------------------------BUTTONS-----------------------------------------------
+var buttons = [
+    { name: "Use Scales", x: 60, y: 460, width: 100, height: 50, fun: useScales },
+    { name: "Next step", x: 180, y: 460, width: 100, height: 50, fun: readyForStepTwo },
+    { name: "Pick the odd ball", x: 300, y: 460, width: 150, height: 50, fun: pick }
+]
+
+var buttonsSVG = d3.select('#buttons').selectAll('a')
+    .data(buttons, function (d, i) {
+        return d ? d.name : this
+    })
+    .enter()
+    .append('button')
+    .attr('type', 'button')
+    .attr('class', 'cd-btn')
+    .html(d => d.name)
+    .on('click', function (d) {
+        d.fun()
+    })
+
+function drawButton(selection) {
+
+    selection.each(function (d, i) {
+        var g = d3.select(this)
+            .attr('id', 'd3-button' + i)
+
+        var rect = g.append('rect')
+            .attr("x", d.x - 20)
+            .attr("y", d.y - 30)
+            .attr("width", d.width)
+            .attr("height", d.height)
+
+        var text = g.append('text')
+            .attr('x', d.x)
+            .attr('y', d.y)
+            .text(d.name)
+            .attr('fill', 'white')
+
+    });
+}
+//-----------------------------------------------------------------------------------------------
+// -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*

@@ -17,10 +17,10 @@
 	<section class="cd-slider-wrapper">
 		<ul class="cd-slider">
 			<li class="visible">
-				<div>
+				<div style="vertical-align: middle">
+					<img style="width: 10%; border-radius: 50%;" src="./img/anuarLight.png" alt="">
 					<h2>Anuar Zhuken</h2>
-					<p>Web Developer</p>
-					<!-- <img src="./img/anuar.jpg" class="avatar" alt="anuar pic"> -->
+					<p style="font-size: 7rem">Software Engineer</p>
 					<a target="_blank" href="https://www.linkedin.com/in/anuarzhukenov/">
 						<img src="./img/linkedin.png" alt="linkedin">
 					</a>
@@ -76,9 +76,19 @@
 <li>
 	<div>
 		<h2>Find an odd ball</h2>
-		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae, distinctio!.</p>
-		<div class="effect1" style="position: relative; background-color: #ffffff; 
-							margin: 0 auto; width: 80%;	height: 400px; border-radius: 5px; text-align: justify">
+		<p>There are 8 balls, same weight, and 1 heavier. Find the odd ball using the scales only twice.</p>
+		<div class="effect1 card" >
+			<div class="part left">
+				<div id="buttons"></div>
+
+				<div id="game" style="margin: 15px"></div>
+			</div>
+			<!-- ******************************* Place ships                   *********************************************** -->
+			<div class="part right">
+				<h2>Technologies</h2>
+				<img class="technology" src="./img/d3.png" alt="">
+				<img class="technology" src="./img/js.png" alt="">
+			</div>
 		</div>
 	</div>
 </li>
@@ -133,6 +143,7 @@
 <script src="js/main.js"></script> <!-- Resource jQuery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.2.2/d3.min.js"></script><!--  D3 -->
 <script src="projects/nQueens/nqueens.js"></script>
+<script src="projects/oddBall/oddBall.js"></script>
 <script src="projects/battleBread/ai.js"></script>
 <script>
 	(function () {
