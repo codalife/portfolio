@@ -448,6 +448,7 @@ svg cover layer
   text-align: justify;
 }
 .card .part {
+  /* padding: 5%;x */
   position: relative; 
   text-align: -webkit-auto; 
   width: 50%; 
@@ -470,6 +471,7 @@ svg cover layer
   position: absolute; 
   top: 0;
   color: white;
+  padding: 5%;
 }
 
 @media screen and (max-width: 800px) { 
@@ -506,4 +508,9 @@ svg cover layer
     -moz-transition: width 1s ease-in-out;
     transition: width 1s ease-in-out;
   }
+}
+
+.interpolate {
+  width: 80%;
+  height: 15px;
 }
