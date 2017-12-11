@@ -59,8 +59,8 @@ Slider
   opacity: 1;
 }
 .cd-slider > li:first-of-type {
-  background-color: #4a3553;
-  background-image: url(../img/img-1.jpg);
+  /* background-color: #4a3553; */
+  background-image: url(../img/SF.jpg);
 }
 .cd-slider > li:nth-of-type(2) {
   background-color: #ffb251;
@@ -198,10 +198,14 @@ Slider navigation
   background-position: -10px -70px;
 }
 .cd-slider-navigation li:nth-of-type(2) a {
-  background-position: -70px -10px;
+  background: url(../img/queen.svg) no-repeat -10px -10px;
+  background-color: #ffffff;
+  background-position: -6px 6px;
 }
 .cd-slider-navigation li.selected:nth-of-type(2) a {
-  background-position: -70px -70px;
+  background: url(../img/queen.svg) no-repeat -10px -10px;
+  background-color: #ffffff;
+  background-position: -49px 6px;
 }
 .cd-slider-navigation li:nth-of-type(3) a {
   background-position: -130px -10px;
@@ -268,10 +272,10 @@ Slider navigation
     background-position: 0 -60px;
   }
   .cd-slider-navigation li:nth-of-type(2) a {
-    background-position: -60px 0;
+    background-position: 5px 15px;
   }
   .cd-slider-navigation li.selected:nth-of-type(2) a {
-    background-position: -60px -60px;
+    background-position: -39px 15px;
   }
   .cd-slider-navigation li:nth-of-type(3) a {
     background-position: -120px 0;
@@ -414,12 +418,12 @@ svg cover layer
 
 .input-number-decrement {
   border-right: none;
-  border-radius: 4px 0 0 4px;
+  border-radius: 2px 0 0 2px;
 }
 
 .input-number-increment {
   border-left: none;
-  border-radius: 0 4px 4px 0;
+  border-radius: 0 2px 2px 0;
 }
 .circle {
   width: 20px;
@@ -429,9 +433,17 @@ svg cover layer
 }
 
 .effect1{
-	-webkit-box-shadow: 0 10px 6px -6px #777;
+	/* -webkit-box-shadow: 0 10px 6px -6px #777;
 	   -moz-box-shadow: 0 10px 6px -6px #777;
-	        box-shadow: 0 10px 6px -6px #777;
+	        box-shadow: 0 10px 6px -6px #777; */
+}
+
+.techHolder {
+  
+}
+.logo {
+  width: 50px;
+  padding: 10px;
 }
 
 .technology {
@@ -444,7 +456,7 @@ svg cover layer
   background-color: #ffffff; 
   margin: 0 auto; 
   height: 400px; 
-  border-radius: 5px; 
+  border-radius: 2px; 
   text-align: justify;
 }
 .card .part {
@@ -460,18 +472,28 @@ svg cover layer
 
 .card .part.left {
   background-color: #544f4f; 
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;  
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;  
 }
 
 .card .part.right {
   background-color: #1c618ad6; 
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
   position: absolute; 
   top: 0;
   color: white;
   padding: 5%;
+}
+.card .part.right ul, p {
+  display: inline;
+  text-align: left;
+}
+
+.card .part.right span {
+  vertical-align: super;
+  padding: 8px;
+
 }
 
 @media screen and (max-width: 800px) { 
@@ -489,7 +511,7 @@ svg cover layer
     z-index: 2;
     position: relative;
     display: block;
-    border-radius: 5px;
+    border-radius: 2px;
   }
   .card .part.right {
     visibility: hidden;
@@ -517,4 +539,30 @@ svg cover layer
 
 .vis {
   display: inline;
+}
+
+.header {
+  position: absolute;
+  height: 60px;
+  background-color: black;
+  width: 100%;
+  z-index: 100;
+}
+.header-contact {
+  display: inline-block;
+  float: right;
+}
+
+.header h2 {
+  font-size: 3rem;
+  color: white;
+  display: inline-block;
+  padding: 1.5rem 0 0 3rem;
+}
+
+.anuar {
+  width: 15%; 
+  border-radius: 50%;
+  border: 2px solid gray;
+  filter: grayscale(1);
 }
