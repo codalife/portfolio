@@ -16,7 +16,7 @@
 <body>
 	<!-- <img src="./img/battleship.svg" alt=""> -->
 	<div class="header">
-		<h2>Anuar Zhuken</h2>
+		<h2 id="name">Anuar Zhuken</h2>
 		<div class="header-contact">
 			<a target="_blank" href="https://www.linkedin.com/in/anuarzhukenov/">
 				<img class="logo" src="./img/linkedin.png" alt="linkedin">
@@ -29,9 +29,9 @@
 	<section class="cd-slider-wrapper">
 		<ul class="cd-slider">
 			<li class="visible">
-				<div style="vertical-align: middle">
-					<img class="anuar" src="./img/anuarLight.png" alt="">
-					<h1 style="font-size: 7rem">Software Engineer</h1>
+				<div style="vertical-align: middle;">
+					<img class="anuar" src="./img/anuarWhite.png" alt="">
+					<h1 style="font-size: 7rem; background-color: gray; color: white">Software Engineer</h1>
 				</div>
 			</li>
 			
@@ -107,8 +107,10 @@
 		<p>Algorithm and visuals to efficiently find ships.</p>
 		<div class="effect1 card">
 			<div class="part left">
-				<button class="cd-btn" id="playHeatMap">Calculate</button>
-				<button class="cd-btn" id="Refresh">Refresh</button>
+				<div>
+					<button class="cd-btn" id="playHeatMap">Calculate</button>
+					<button class="cd-btn" id="Refresh">Refresh</button>
+				</div>
 				<div class='vis'></div>
 			</div>
 			<!-- ******************************* Place ships                   *********************************************** -->
@@ -195,6 +197,30 @@
 	})();
 	
 	inputNumber($('.input-number'));
+
+	var mainLink = document.getElementById("name");
+	var innerHTML = mainLink.innerHTML;
+
+	mainLink.addEventListener("mouseenter", function (event) {
+
+			var i = 0
+
+			var funky = setInterval(function () {
+				var text = '';
+				if (innerHTML.charAt(i) === innerHTML.charAt(i).toUpperCase()) {
+					text = innerHTML.substring(0, i) + innerHTML.charAt(i).toLowerCase() + innerHTML.substring(i + 1, innerHTML.length)
+				} else {
+					text = innerHTML.substring(0, i) + innerHTML.charAt(i).toUpperCase() + innerHTML.substring(i + 1, innerHTML.length)
+				}
+				document.getElementById("name").innerHTML = text;
+
+				i++;
+				if (i > innerHTML.length) {
+					clearInterval(funky)
+				}
+			}, 50);
+
+		}, false);
 </script>
 </body>
 </html>

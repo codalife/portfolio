@@ -64,7 +64,7 @@ Slider
 }
 .cd-slider > li:nth-of-type(2) {
   background-color: #ffb251;
-  background-image: url(../img/img-2.jpg);
+  background-image: url(../img/chess1.jpeg);
 }
 .cd-slider > li:nth-of-type(3) {
   background-color: #7d7160;
@@ -72,7 +72,7 @@ Slider
 }
 .cd-slider > li:nth-of-type(4) {
   background-color: #ff625a;
-  background-image: url(../img/img-4.jpg);
+  background-image: url(../img/battle.jpg);
 }
 .cd-slider > li:first-of-type, .cd-slider > li:nth-of-type(2), .cd-slider > li:nth-of-type(3), .cd-slider > li:nth-of-type(4) {
   background-size: cover;
@@ -116,6 +116,7 @@ Slider
 }
 .no-touch .cd-slider > li .cd-btn:hover {
   background-color: rgba(0, 0, 0, 0.8);
+  cursor: pointer; 
 }
 @media only screen and (min-width: 768px) {
   .cd-slider > li h2, .cd-slider > li p {
@@ -455,7 +456,7 @@ svg cover layer
   position: relative; 
   background-color: #ffffff; 
   margin: 0 auto; 
-  height: 400px; 
+  height: 480px; 
   border-radius: 2px; 
   text-align: justify;
 }
@@ -473,7 +474,8 @@ svg cover layer
 .card .part.left {
   background-color: #544f4f; 
   border-top-left-radius: 2px;
-  border-bottom-left-radius: 2px;  
+  border-bottom-left-radius: 2px;
+  width: 60%;
 }
 
 .card .part.right {
@@ -481,6 +483,7 @@ svg cover layer
   border-top-right-radius: 2px;
   border-bottom-right-radius: 2px;
   position: absolute; 
+  width: 40%;
   top: 0;
   color: white;
   padding: 5%;
@@ -565,4 +568,5 @@ svg cover layer
   border-radius: 50%;
   border: 2px solid gray;
   filter: grayscale(1);
+  background-color: white;
 }
