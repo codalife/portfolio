@@ -119,57 +119,78 @@ class OddBall {
     }
 }
 
-const bt = new OddBall();
+let bt = new OddBall();
+let legend;
 
-var legend = svg.selectAll("text")
-    .data(bt.message)
-    .enter()
-    .append("text")
-    .text(function (d) { return d.text })
-    .attr('x', d => d.x)
-    .attr('y', d => d.y)
-    .attr('font-size', d => d.size)
-    .attr('fill', d => d.fill)
+function drawLegend(game) {
+    svg.selectAll('text')
+        .data([])
+        .exit()
+        .remove();
 
+    legend = svg.selectAll("text")
+        .data(game.message)
+        .enter()
+        .append("text")
+        .text(function (d) { return d.text })
+        .attr('x', d => d.x)
+        .attr('y', d => d.y)
+        .attr('font-size', d => d.size)
+        .attr('fill', d => d.fill)
+}
+
+drawLegend(bt);
 //-----------------------------------------------------------------------------------------------
 // -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+var svgBalls;
 
+function drawBalls(game) {
+    svg.selectAll('circle')
+        .data([])
+        .exit()
+        .remove();
 
-var svgBalls = svg
-    .selectAll('circle')
-    .data(bt.balls)
-    .enter()
-    .append('circle')
-    .attr('r', 15)
-    .attr('fill', 'url(#metal)')
-    .attr('id', d => d.id)
+    svgBalls = svg
+        .selectAll('circle')
+        .data(game.balls)
+        .enter()
+        .append('circle')
+        .attr('r', 15)
+        .attr('fill', 'url(#metal)')
+        .attr('id', d => d.id)
 
-svgBalls
-    .call(d3.drag()
-        .on("start", dragstarted)
-        .on("drag", dragged)
-        .on("end", dragended));
+    svgBalls
+        .call(d3.drag()
+            .on("start", dragstarted)
+            .on("drag", dragged)
+            .on("end", dragended));
+}
 
-
+drawBalls(bt);
 // ----------------------------------------------------------------------------------------------
 // -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 
 // ----------------------------------- SIMULATION --------------------------------------------
 var shiftRight = 180;
+var simulation;
 
-var simulation = d3.forceSimulation(bt.balls)
-    .force("collide", d3.forceCollide().radius(16))
-    .force('y', d3.forceY(400).strength(0.75))
-
-var ticked = function () {
-    svgBalls
-        .attr("cx", function (d, i) { return d.x + shiftRight; })
-        .attr("cy", function (d) { return d.y; })
+function  runSimulation(game) {
+    simulation = d3.forceSimulation(game.balls)
+        .force("collide", d3.forceCollide().radius(16))
+        .force('y', d3.forceY(400).strength(0.75))
+    
+    var ticked = function () {
+        svgBalls
+            .attr("cx", function (d, i) { return d.x + shiftRight; })
+            .attr("cy", function (d) { return d.y; })
+    }
+    
+    simulation
+        .on("tick", ticked);
+    
 }
 
-simulation
-    .on("tick", ticked);
-
+runSimulation(bt);
 // ----------------------------------------------------------------------------------------------
 // -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 
@@ -341,11 +362,12 @@ function useScales(numOfBallsOnLeft, numOfBallsOnRight) {
 
     bt.message[1]['text'] = parseInt(bt.message[1]['text']) - 1;
 
+    if (bt.message[1].text === 1) {
+        setTimeout(() => {
+            alert("Toss some balls to the bin and hit 'Next Step'");
+        }, 1000);
+    }
 
-    // if(parseInt(message[1]['text']) < 1){
-    // 	message[1]['text'] = "over the limit"
-    // 	setTimeout(function(){ alert("Game over");}, 1000);
-    // }
     var update = svg.selectAll('text')
         .data(bt.message)
         .text(d => d.text)
@@ -363,6 +385,11 @@ function drawScales() {
     var d3DataRightScales = rightScalesCoordinartes.map(function (point) {
         return point.reduce(function (s, n) { return s + ', ' + n.x + ',' + n.y }, '').substr(2)
     });
+
+    svg.selectAll('polygon')
+        .enter([])
+        .exit()
+        .remove();
 
     rightScales
         .selectAll("polygon")
@@ -410,6 +437,14 @@ function readyForStepTwo() {
 }
 //-----------------------------------------------------------------------------------------------
 // -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+function replay() {
+    bt = new OddBall();
+    drawBalls(bt);
+    runSimulation(bt);
+    drawLegend(bt);
+    readyForStepTwo(); 
+}   
+
 function pick() {
     var target;
     document.addEventListener('click', guess)
@@ -427,18 +462,22 @@ function guess(e) {
         if (parseInt(bt.message[7].text) === 3 && parseInt(bt.message[8].text) === 3
             && parseInt(bt.message[9].text) === 1 && parseInt(bt.message[10].text) === 1) {
             console.log('Who is smart?');
+            alert("That's the correct solution!");
         } else {
             console.log('Pure luck');
+            alert('Pure luck. You can do better.');
         }
     } else if (target.tagName === 'circle') {
         console.log('Nah');
+        alert("Nope...");
     }
 }
 //---------------------------------BUTTONS-----------------------------------------------
 var buttons = [
     { name: "Use Scales", x: 60, y: 460, width: 100, height: 50, fun: useScales },
     { name: "Next step", x: 180, y: 460, width: 100, height: 50, fun: readyForStepTwo },
-    { name: "Pick the odd ball", x: 300, y: 460, width: 150, height: 50, fun: pick }
+    { name: "Pick the odd ball", x: 300, y: 460, width: 150, height: 50, fun: pick },
+    { name: "Replay", x: 500, y: 460, width: 150, height: 50, fun: replay}
 ]
 
 var buttonsSVG = d3.select('#buttons').selectAll('a')
