@@ -25,7 +25,7 @@ var svg = d3.select('#game')
 var canvas = svg.append('rect')
     .attr('width', '100%')
     .attr('height', '100%')
-    .attr('fill', '#544f4f')
+    .attr('fill', 'darkslategray')
 // ----------------------------------------------------------------------------------------------
 // -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 
@@ -91,26 +91,38 @@ var numOfBallsOnRightFirst = 0;
 var numOfBallsOnLeftSecond = 0;
 var numOfBallsOnRightSecond = 0;
 var fontSize = 50;
+class OddBall {
+    constructor() {
+        this.message = [
+            { text: "SCALES USAGES LEFT:", x: 50, y: 50, size: fontSize, fill: "#cc0000" }, //0
+            { text: "2", x: 600, y: 50, size: fontSize, fill: "#cc0000" },				  //1
+            { text: 'left', x: 450, y: 110, size: fontSize, fill: 'black' },          //2
+            { text: 'right', x: 600, y: 110, size: fontSize, fill: 'black' },         //3
+            { text: '', x: 600, y: 90, size: fontSize, fill: 'black' },         //4
+            { text: 'first usage stats: ', x: 50, y: 170, size: fontSize, fill: 'black' },//5
+            { text: 'second usage stats: ', x: 50, y: 230, size: fontSize, fill: 'black' }, //6
+            { text: 0, x: 450, y: 170, size: fontSize, fill: 'black' }, //7  balls on left first go
+            { text: 0, x: 600, y: 170, size: fontSize, fill: 'black' }, //8  balls on right first go
+            { text: 0, x: 450, y: 230, size: fontSize, fill: 'black' }, //9  balls on left second go
+            { text: 0, x: 600, y: 230, size: fontSize, fill: 'black' }, //10  balls on right second go
+            { text: 'second usage stats: ', x: 50, y: 230, size: fontSize, fill: 'black' },  //11
+            { text: 'second usage stats: ', x: 50, y: 230, size: fontSize, fill: 'black' },  //12
+        ];
+// -----------------------------------  BALLS --------------------------------------------
+        this.balls = [{ id: 0, odd: false }, { id: 1, odd: false }, { id: 2, odd: false },
+                        { id: 3, odd: false }, { id: 4, odd: false }, { id: 5, odd: false },
+                        { id: 6, odd: false }, { id: 7, odd: false }, { id: 8, odd: false }];
 
-var message = [
-    { text: "SCALES USAGES LEFT:", x: 50, y: 50, size: fontSize, fill: "#cc0000" }, //0
-    { text: "2", x: 600, y: 50, size: fontSize, fill: "#cc0000" },				  //1
-    { text: 'left', x: 450, y: 110, size: fontSize, fill: 'black' },          //2
-    { text: 'right', x: 600, y: 110, size: fontSize, fill: 'black' },         //3
-    { text: '', x: 600, y: 90, size: fontSize, fill: 'black' },         //4
-    { text: 'first usage stats: ', x: 50, y: 170, size: fontSize, fill: 'black' },//5
-    { text: 'second usage stats: ', x: 50, y: 230, size: fontSize, fill: 'black' }, //6
-    { text: 0, x: 450, y: 170, size: fontSize, fill: 'black' }, //7  balls on left first go
-    { text: 0, x: 600, y: 170, size: fontSize, fill: 'black' }, //8  balls on right first go
-    { text: 0, x: 450, y: 230, size: fontSize, fill: 'black' }, //9  balls on left second go
-    { text: 0, x: 600, y: 230, size: fontSize, fill: 'black' }, //10  balls on right second go
-    { text: 'second usage stats: ', x: 50, y: 230, size: fontSize, fill: 'black' },  //11
-    { text: 'second usage stats: ', x: 50, y: 230, size: fontSize, fill: 'black' },  //12
-]
+        this.odd = parseInt(Math.random() * 9);
 
+        this.balls[this.odd]['odd'] = true;
+    }
+}
+
+const bt = new OddBall();
 
 var legend = svg.selectAll("text")
-    .data(message)
+    .data(bt.message)
     .enter()
     .append("text")
     .text(function (d) { return d.text })
@@ -122,22 +134,13 @@ var legend = svg.selectAll("text")
 //-----------------------------------------------------------------------------------------------
 // -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 
-// -----------------------------------  BALLS --------------------------------------------
-var balls = [{ id: 0, odd: false }, { id: 1, odd: false }, { id: 2, odd: false },
-{ id: 3, odd: false }, { id: 4, odd: false }, { id: 5, odd: false },
-{ id: 6, odd: false }, { id: 7, odd: false }, { id: 8, odd: false }];
-
-var odd = parseInt(Math.random() * 9)
-
-balls[odd]['odd'] = true
 
 var svgBalls = svg
     .selectAll('circle')
-    .data(balls)
+    .data(bt.balls)
     .enter()
     .append('circle')
     .attr('r', 15)
-    // .attr('x', function(d,i){return i*20+200})
     .attr('fill', 'url(#metal)')
     .attr('id', d => d.id)
 
@@ -154,7 +157,7 @@ svgBalls
 // ----------------------------------- SIMULATION --------------------------------------------
 var shiftRight = 180;
 
-var simulation = d3.forceSimulation(balls)
+var simulation = d3.forceSimulation(bt.balls)
     .force("collide", d3.forceCollide().radius(16))
     .force('y', d3.forceY(400).strength(0.75))
 
@@ -174,9 +177,6 @@ simulation
 function dragstarted(d) {
     simulation.restart();
     simulation.alpha(1.0);
-    // d3.select(this)
-    // 	.raise()
-    // 	.classed("active", true);
 }
 
 function dragged(d, i) {
@@ -187,10 +187,10 @@ function dragged(d, i) {
 
 function dragended(d, i) {
     if (d.x + shiftRight > binCoordinates.x) {
-        balls = balls.filter(d => d.id != i);
+        bt.balls = bt.balls.filter(d => d.id != i);
 
         var update = svg.selectAll('circle')
-            .data(balls, d => d.id)
+            .data(bt.balls, d => d.id)
             .attr('fill', 'url(#metal)')
 
         update
@@ -219,7 +219,7 @@ function useScales(numOfBallsOnLeft, numOfBallsOnRight) {
     var numOfBallsOnLeft = 0
     var numOfBallsOnRight = 0
 
-    var text = d3.selectAll('text').data(message);
+    var text = d3.selectAll('text').data(bt.message);
     var inTheRightScale = false;
     var inTheLeftScale = false;
 
@@ -328,26 +328,18 @@ function useScales(numOfBallsOnLeft, numOfBallsOnRight) {
         skewRight()
     }
 
-    if (parseInt(message[1]['text']) === 2) {
-        setTimeout(function () {
-            document.getElementById('instruction').click()
+    if (parseInt(bt.message[1]['text']) === 2) {
 
-        }, 1000);
-
-        message[7]['text'] = numOfBallsOnLeft
-        message[8]['text'] = numOfBallsOnRight
+        bt.message[7]['text'] = numOfBallsOnLeft
+        bt.message[8]['text'] = numOfBallsOnRight
     }
-    if (parseInt(message[1]['text']) === 1) {
-        setTimeout(function () {
-            // alert("Toss non-odd balls in the bin.");
+    if (parseInt(bt.message[1]['text']) === 1) {
 
-        }, 1000);
-
-        message[9]['text'] = numOfBallsOnLeft
-        message[10]['text'] = numOfBallsOnRight
+        bt.message[9]['text'] = numOfBallsOnLeft
+        bt.message[10]['text'] = numOfBallsOnRight
     }
 
-    message[1]['text'] = parseInt(message[1]['text']) - 1;
+    bt.message[1]['text'] = parseInt(bt.message[1]['text']) - 1;
 
 
     // if(parseInt(message[1]['text']) < 1){
@@ -355,7 +347,7 @@ function useScales(numOfBallsOnLeft, numOfBallsOnRight) {
     // 	setTimeout(function(){ alert("Game over");}, 1000);
     // }
     var update = svg.selectAll('text')
-        .data(message)
+        .data(bt.message)
         .text(d => d.text)
 }
 // ----------------------------------------------------------------------------------------------
@@ -430,19 +422,16 @@ function guess(e) {
 
     var target = e.target || e.srcElement
 
-    var theChosenOne = document.getElementById(odd);
+    var theChosenOne = document.getElementById(bt.odd);
     if (theChosenOne === target) {
-        if (parseInt(message[7].text) === 3 && parseInt(message[8].text) === 3
-            && parseInt(message[9].text) === 1 && parseInt(message[10].text) === 1) {
-            document.getElementById('rightSolution').click()
-            // alert("That's the right solution! You are amazing!")
+        if (parseInt(bt.message[7].text) === 3 && parseInt(bt.message[8].text) === 3
+            && parseInt(bt.message[9].text) === 1 && parseInt(bt.message[10].text) === 1) {
+            console.log('Who is smart?');
         } else {
-            // alert('Lucky you')
-            document.getElementById('lucky').click()
+            console.log('Pure luck');
         }
     } else if (target.tagName === 'circle') {
-        document.getElementById('wrong').click()
-        // alert('Try again. You can do it.')
+        console.log('Nah');
     }
 }
 //---------------------------------BUTTONS-----------------------------------------------

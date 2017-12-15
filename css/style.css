@@ -472,7 +472,9 @@ svg cover layer
 }
 
 .card .part.left {
-  background-color: #544f4f; 
+  /* background-color: #544f4f; 
+   */
+  background-color: darkslategray;
   border-top-left-radius: 2px;
   border-bottom-left-radius: 2px;
   width: 60%;
@@ -569,4 +571,7 @@ svg cover layer
   border: 2px solid gray;
   filter: grayscale(1);
   background-color: white;
+}
+.anuar:hover {
+  filter: none;
 }
